@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { Button } from "@material-tailwind/react";
+import useTitle from "./hooks/useTitle";
 
 function App() {
 
   return (
     <>
+      {
+        useTitle("Home", "This is the home page")
+      }
       <Button>Button</Button>
     </>
   )
