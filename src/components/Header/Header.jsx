@@ -10,6 +10,7 @@ import { MdDarkMode } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
 import Logo from '../Logo/Logo';
 import { CoreContext } from '../../AppContext/AppContext';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
     const [openNav, setOpenNav] = useState(false);
@@ -35,9 +36,9 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Pages
-                </a>
+                <NavLink to={`/`} className="flex items-center">
+                    Home
+                </NavLink>
             </Typography>
             <Typography
                 as="li"
@@ -45,9 +46,9 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Account
-                </a>
+                <NavLink to={`/classes`} className="flex items-center">
+                    Classes
+                </NavLink>
             </Typography>
             <Typography
                 as="li"
@@ -74,7 +75,7 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-amber-900">
+            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-amber-900 mt-2 rounded-xl">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Logo></Logo>
                     <div className="flex items-center gap-4">
