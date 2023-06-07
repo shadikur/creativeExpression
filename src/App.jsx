@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       {
-        useTitle("Home", "This is the home page")
+        useTitle()
       }
       <Button>Button</Button>
     </>
