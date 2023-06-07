@@ -5,6 +5,7 @@ import Footer from '../components/Footer/Footer';
 import Container from './Container';
 
 const LandingPage = () => {
+
     return (
         <Container>
             <Header></Header>

@@ -4,6 +4,7 @@ import { ThemeProvider } from "@material-tailwind/react";
 import './index.css'
 import { RouterProvider } from 'react-router-dom';
 import routes from './routes/routes.jsx';
+import AppContext from './AppContext/AppContext';
 
 // const darkTheme = ({
 //   component: {
@@ -16,7 +17,9 @@ import routes from './routes/routes.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={routes}></RouterProvider>
+      <AppContext>
+        <RouterProvider router={routes}></RouterProvider>
+      </AppContext>
     </ThemeProvider>
   </React.StrictMode>,
 )
