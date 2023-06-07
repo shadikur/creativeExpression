@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Navbar,
     Typography,
     Button,
     IconButton,
-    Card,
     Collapse,
 } from "@material-tailwind/react";
 import { MdDarkMode } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
 import Logo from '../Logo/Logo';
+import { CoreContext } from '../../AppContext/AppContext';
 
 const Header = () => {
     const [openNav, setOpenNav] = useState(false);
@@ -20,19 +20,7 @@ const Header = () => {
         );
     }, []);
 
-
-
-    // Create a theme switcher
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-    useEffect(() => {
-        localStorage.setItem('theme', theme);
-        // Using tailwind dark mode switcher
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    }, [theme]);
+    const { theme, setTheme } = useContext(CoreContext);
 
     const toggleTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');

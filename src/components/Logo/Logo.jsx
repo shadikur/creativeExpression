@@ -1,8 +1,8 @@
-import React from 'react';
-import useThemeStyles from '../../hooks/useThemeStyles';
+import React, { useContext } from 'react';
+import { CoreContext } from '../../AppContext/AppContext';
 
 const Logo = () => {
-    const theme = useThemeStyles();
+    const { theme } = useContext(CoreContext);
     console.log(theme);
     return (
         <div>
