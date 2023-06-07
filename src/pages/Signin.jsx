@@ -3,7 +3,7 @@ import React from 'react';
 const Signin = () => {
     return (
         <div>
-            <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100">
+            <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-900 text-gray-100 mx-auto m-10">
                 <h1 className="text-2xl font-bold text-center">Login</h1>
                 <form className="space-y-6 ng-untouched ng-pristine ng-valid" data-bitwarden-watching="1">
                     <div className="space-y-1 text-sm">
