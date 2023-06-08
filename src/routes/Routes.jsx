@@ -14,6 +14,8 @@ import ViewCourses from "../pages/Dashboard/ViewCourses";
 import ViewCourseCategory from "../pages/Dashboard/ViewCourseCategory";
 import AddCourseCategory from "../pages/Dashboard/AddCourseCategory";
 import ViewAllUsers from "../pages/Dashboard/ViewAllUsers";
+import ViewProfile from "../pages/Dashboard/ViewProfile";
+import Settings from "../pages/Dashboard/Settings";
 
 const routes = createBrowserRouter([
     {
@@ -58,11 +60,11 @@ const routes = createBrowserRouter([
                 element: <Dashboard></Dashboard>,
             },
             {
-                path: "addcourse",
+                path: "addclasses",
                 element: <AddCourse></AddCourse>,
             },
             {
-                path: "viewcourses",
+                path: "viewclasses",
                 element: <ViewCourses></ViewCourses>
             },
             {
@@ -81,6 +83,14 @@ const routes = createBrowserRouter([
                 path: "viewcoursecategory",
                 element: <ViewCourseCategory></ViewCourseCategory>
             },
+            {
+                path: "viewprofile",
+                element: <ViewProfile></ViewProfile>
+            },
+            {
+                path: "settings",
+                element: <Settings></Settings>
+            }
 
 
         ]

@@ -94,12 +94,16 @@ const Header = () => {
                                 <Button>Membership</Button>
                             </MenuHandler>
                             <MenuList>
-                                <MenuItem>
-                                    <Link to={`/signin`}>Sign In</Link>
-                                </MenuItem>
-                                <MenuItem>
-                                    <Link to={`/signup`}>Sign Up</Link>
-                                </MenuItem>
+                                <Link to={`/signin`}>
+                                    <MenuItem>
+                                        Sign In
+                                    </MenuItem>
+                                </Link>
+                                <Link to={`/signup`}>
+                                    <MenuItem>
+                                        Sign Up
+                                    </MenuItem>
+                                </Link>
                             </MenuList>
                         </Menu>
                         {/* Add a theme switcher */}

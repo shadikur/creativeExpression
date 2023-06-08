@@ -10,6 +10,7 @@ import {
     AccordionBody,
     Switch,
     Drawer,
+    Button,
 } from "@material-tailwind/react";
 
 import {
@@ -24,6 +25,7 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import Logo from '../../components/Logo/Logo';
 import { CoreContext } from '../../AppContext/AppContext';
 import { Link } from 'react-router-dom';
+import { MdOutlineDashboard } from 'react-icons/md';
 
 
 const Sidebar = () => {
@@ -43,6 +45,9 @@ const Sidebar = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
     };
 
+    const handleLogout = () => {
+    }
+
 
     return (
         <div>
@@ -50,7 +55,14 @@ const Sidebar = () => {
                 <div className="mb-2 flex items-center gap-4 p-4">
                     <Logo></Logo>
                 </div>
+
                 <List>
+                    <ListItem>
+                        <ListItemPrefix>
+                            <MdOutlineDashboard className="h-5 w-5" />
+                        </ListItemPrefix>
+                        Dashboard
+                    </ListItem>
                     <Accordion
                         open={open === 1}
                         icon={
@@ -72,18 +84,23 @@ const Sidebar = () => {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    View All Users
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    <Link to="/dashboard/addusers">Add User</Link>
-                                </ListItem>
+                                <Link to="/dashboard/viewusers">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        View Users
+                                    </ListItem>
+                                </Link>
+                                <Link to="/dashboard/addusers">
+                                    <ListItem>
+
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Add User
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>
@@ -108,30 +125,38 @@ const Sidebar = () => {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    View Categories
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Add Categories
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Add Classes
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    View Classes
-                                </ListItem>
+                                <Link to="/dashboard/viewcoursecategory">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        View Categories
+                                    </ListItem>
+                                </Link>
+                                <Link to="/dashboard/addcoursecategory">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Add Categories
+                                    </ListItem>
+                                </Link>
+                                <Link to="/dashboard/addclasses">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Add Classes
+                                    </ListItem>
+                                </Link>
+                                <Link to="/dashboard/viewclasses">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        View Classes
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>
@@ -157,18 +182,22 @@ const Sidebar = () => {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    View All Events
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    Publish Events
-                                </ListItem>
+                                <Link to="/dashboard/viewevents">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        View All Events
+                                    </ListItem>
+                                </Link>
+                                <Link to="/dashboard/addevents">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        Publish Events
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>
@@ -193,34 +222,39 @@ const Sidebar = () => {
                         </ListItem>
                         <AccordionBody className="py-1">
                             <List className="p-0">
-                                <ListItem>
-                                    <ListItemPrefix>
-                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>
-                                    View Transactions
-                                </ListItem>
+                                <Link to="/dashboard/viewpayments">
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                        </ListItemPrefix>
+                                        View Transactions
+                                    </ListItem>
+                                </Link>
                             </List>
                         </AccordionBody>
                     </Accordion>
                     <hr className="my-2 border-blue-gray-50" />
-                    <ListItem>
-                        <ListItemPrefix>
-                            <UserCircleIcon className="h-5 w-5" />
-                        </ListItemPrefix>
-                        Profile
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <Cog6ToothIcon className="h-5 w-5" />
-                        </ListItemPrefix>
-                        Settings
-                    </ListItem>
-                    <ListItem>
-                        <ListItemPrefix>
-                            <PowerIcon className="h-5 w-5" />
-                        </ListItemPrefix>
+                    <Link to="/dashboard/viewprofile">
+                        <ListItem>
+                            <ListItemPrefix>
+                                <UserCircleIcon className="h-5 w-5" />
+                            </ListItemPrefix>
+                            Profile
+                        </ListItem>
+                    </Link>
+                    <Link to="/dashboard/settings">
+                        <ListItem>
+                            <ListItemPrefix>
+                                <Cog6ToothIcon className="h-5 w-5" />
+                            </ListItemPrefix>
+                            Settings
+                        </ListItem>
+                    </Link>
+
+                    <Button className="w-full flex justify-center items-center gap-4" onClick={handleLogout}>
+                        <PowerIcon className="h-5 w-5" />
                         Log Out
-                    </ListItem>
+                    </Button>
                 </List>
                 <hr className="my-2 border-blue-gray-50" />
                 {/* Light and Dark Mode Swith */}
@@ -233,7 +267,7 @@ const Sidebar = () => {
 
 
             </Card>
-        </div>
+        </div >
     );
 };
 
