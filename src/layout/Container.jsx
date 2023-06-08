@@ -1,9 +1,8 @@
 import React from 'react';
-import useThemeStyles from '../hooks/useThemeStyles';
 
 const Container = ({ children }) => {
     return (
-        <div className='container mx-auto'>
+        <div className='md:container mx-auto'>
             {children}
         </div>
     );

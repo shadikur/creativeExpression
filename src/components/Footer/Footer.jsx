@@ -23,17 +23,19 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative w-full">
+        <footer className="relative w-full rounded-t-3xl dark:bg-[#292929]">
             <div className="mx-auto w-full max-w-7xl px-8">
                 <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-                    <Logo></Logo>
-                    <div className="grid grid-cols-3 justify-between gap-4">
+                    <div className='mt-7'>
+                        <Logo></Logo>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 justify-between gap-4">
                         {LINKS.map(({ title, items }) => (
                             <ul key={title}>
                                 <Typography
                                     variant="small"
                                     color="blue-gray"
-                                    className="mb-3 font-medium opacity-40"
+                                    className="mb-3 font-medium opacity-40 dark:text-white mt-4"
                                 >
                                     {title}
                                 </Typography>
@@ -43,7 +45,7 @@ const Footer = () => {
                                             as="a"
                                             href="#"
                                             color="gray"
-                                            className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
+                                            className="py-1.5 font-normal transition-colors hover:text-blue-gray-900 dark:text-white"
                                         >
                                             {link}
                                         </Typography>
@@ -56,12 +58,12 @@ const Footer = () => {
                 <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
                     <Typography
                         variant="small"
-                        className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
+                        className="mb-4 text-center font-normal text-blue-gray-900 dark:text-white md:mb-0"
                     >
                         &copy; {currentYear} <Link to={`/`}>Creative Expressions</Link>. All
                         Rights Reserved.
                     </Typography>
-                    <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+                    <div className="flex gap-4 text-blue-gray-900 dark:text-white sm:justify-center">
                         <Typography as="a" href="#" className="opacity-80 transition-opacity hover:opacity-100">
                             <FaFacebook></FaFacebook>
                         </Typography>

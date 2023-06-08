@@ -40,7 +40,7 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <NavLink to={`/`} className="flex items-center">
+                <NavLink to={`/`} className="flex items-center dark:text-white">
                     Home
                 </NavLink>
             </Typography>
@@ -50,7 +50,7 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <NavLink to={`/classes`} className="flex items-center">
+                <NavLink to={`/classes`} className="flex items-center dark:text-white">
                     Classes
                 </NavLink>
             </Typography>
@@ -60,7 +60,7 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to={`/events`} className="flex items-center">
+                <Link to={`/events`} className="flex items-center dark:text-white">
                     Events
                 </Link>
             </Typography>
@@ -70,7 +70,7 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to={`/contact`} className="flex items-center">
+                <Link to={`/contact`} className="flex items-center dark:text-white">
                     Contact
                 </Link>
             </Typography>
@@ -79,8 +79,8 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-amber-900 mt-2 rounded-xl shadow-2xl">
-                <div className="flex items-center justify-between text-blue-gray-900">
+            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-[#292929] mt-2 rounded-xl shadow-2xl">
+                <div className="flex items-center justify-between text-blue-gray-900 dark:text-white">
                     <Logo></Logo>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
