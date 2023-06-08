@@ -9,20 +9,20 @@ import {
 import { Link } from 'react-router-dom';
 import Banner from '../components/Banner/Banner';
 import SocialLogins from '../components/SocialLogins/SocialLogins';
+import useTitle from './../hooks/useTitle';
 
 const Signin = () => {
     const links = [
         {
-            "label": "Home",
-            "url": "/"
-        },
-        {
-            "label": "About",
-            "url": "/about"
+            "label": "Sign In",
+            "url": "/signin"
         },
     ];
     return (
         <>
+            {
+                useTitle('Sign In', ' Unlesh your creativity')
+            }
             <Banner links={links}></Banner>
             <div className='max-w-md mx-auto m-20'>
 
@@ -42,7 +42,7 @@ const Signin = () => {
                         </div>
 
                         <Button className="mt-6" fullWidth>
-                            Register
+                            Sign In
                         </Button>
                         <Typography color="gray" className="mt-4 text-center font-normal">
                             New here?{" "}

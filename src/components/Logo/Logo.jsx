@@ -10,7 +10,7 @@ const Logo = () => {
             {
                 theme == 'light' ?
                     <Link to={`/`}>
-                        <img src="https://res.cloudinary.com/ddez9nchs/image/upload/v1686090505/CreativeExpressions/creative-expressions-high-resolution-logo-color-on-transparent-background.png" alt="logo" className="h-8" />
+                        <img src="https://res.cloudinary.com/ddez9nchs/image/upload/v1686217446/CreativeExpressions/creative-expressions-high-resolution-logo-color-on-transparent-background_1.png" alt="logo" className="h-8" />
                     </Link>
                     :
                     <Link to={`/`}>

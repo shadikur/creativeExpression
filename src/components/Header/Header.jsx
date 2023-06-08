@@ -5,6 +5,10 @@ import {
     Button,
     IconButton,
     Collapse,
+    Menu,
+    MenuHandler,
+    MenuList,
+    MenuItem,
 } from "@material-tailwind/react";
 import { MdDarkMode } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
@@ -56,9 +60,9 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Blocks
-                </a>
+                <Link to={`/events`} className="flex items-center">
+                    Events
+                </Link>
             </Typography>
             <Typography
                 as="li"
@@ -66,27 +70,38 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center">
-                    Docs
-                </a>
+                <Link to={`/contact`} className="flex items-center">
+                    Contact
+                </Link>
             </Typography>
         </ul>
     );
 
     return (
         <>
-            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-amber-900 mt-2 rounded-xl">
+            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-amber-900 mt-2 rounded-xl shadow-2xl">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Logo></Logo>
                     <div className="flex items-center gap-4">
                         <div className="mr-4 hidden lg:block">{navList}</div>
-                        <Button
-                            variant="gradient"
-                            size="sm"
-                            className="hidden lg:inline-block"
+                        <Menu
+                            animate={{
+                                mount: { y: 0 },
+                                unmount: { y: 25 },
+                            }}
                         >
-                            <span>Buy Now</span>
-                        </Button>
+                            <MenuHandler>
+                                <Button>Membership</Button>
+                            </MenuHandler>
+                            <MenuList>
+                                <MenuItem>
+                                    <Link to={`/signin`}>Sign In</Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Link to={`/signup`}>Sign Up</Link>
+                                </MenuItem>
+                            </MenuList>
+                        </Menu>
                         {/* Add a theme switcher */}
                         <button
                             id="theme-toggle"

@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import LandingPage from "../layout/LandingPage";
 import Home from "../pages/Home";
-import Blogs from "../pages/Blogs";
 import Contact from "../pages/Contact";
 import Default from "../layout/Default";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
+import Events from "../pages/Events";
+import Classes from "../pages/Classes";
 
 const routes = createBrowserRouter([
     {
@@ -19,11 +20,11 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/classes",
-                element: <h1>Classes</h1>
+                element: <Classes></Classes>
             },
             {
-                path: "/blogs",
-                element: <Blogs></Blogs>
+                path: "/events",
+                element: <Events></Events>
             },
             {
                 path: "/contact",
