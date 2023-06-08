@@ -13,16 +13,13 @@ const AddUsers = () => {
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="firstname" className="text-sm">First name</label>
-                                <Input id="firstname" type="text" placeholder="First name" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
+                                <Input id="firstname" type="text" label='First name' />
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="lastname" className="text-sm">Last name</label>
-                                <Input id="lastname" type="text" placeholder="Last name" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
+                                <Input id="lastname" type="text" label='Last name' />
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                <label htmlFor="email" className="text-sm">Email</label>
-                                <Input id="email" type="email" placeholder="Email" className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700 dark:text-gray-900" />
+                                <Input id="email" type="email" label='Email' />
                             </div>
 
                         </div>

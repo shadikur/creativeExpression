@@ -51,7 +51,7 @@ const Sidebar = () => {
 
     return (
         <div>
-            <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-2xl">
+            <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-2xl dark:bg-gray-800 dark:text-gray-100 bg-white">
                 <div className="mb-2 flex items-center gap-4 p-4">
                     <Logo></Logo>
                 </div>
