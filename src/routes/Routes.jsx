@@ -19,6 +19,7 @@ import Settings from "../pages/Dashboard/Settings";
 import ViewEvents from "../pages/Dashboard/ViewEvents";
 import AddEvents from "../pages/Dashboard/AddEvents";
 import ViewPayments from "../pages/Dashboard/ViewPayments";
+import Tos from "../pages/tos";
 
 const routes = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const routes = createBrowserRouter([
             {
                 path: "signup",
                 element: <Signup></Signup>
+            },
+            {
+                path: "terms",
+                element: <Tos></Tos>
             }
 
 

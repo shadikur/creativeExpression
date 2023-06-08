@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProtectedRoutes = () => {
+const Tos = () => {
     return (
         <div>
 
@@ -8,4 +8,4 @@ const ProtectedRoutes = () => {
     );
 };
 
-export default ProtectedRoutes;
+export default Tos;

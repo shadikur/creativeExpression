@@ -28,6 +28,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
                     <div className='mt-7'>
                         <Logo></Logo>
+                        <Typography variant="body2" className="text-black dark:text-white mt-3">
+                            Welcome to Creative Expressions, where imagination meets craftsmanship! Our summer school offers a variety of art and craft courses designed to ignite your creativity. Explore painting, sculpting, photography, and more under the guidance of our experienced instructors. Join us for a transformative experience and unleash your artistic potential at Creative Expressions!
+                        </Typography>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 justify-between gap-4">
                         {LINKS.map(({ title, items }) => (

@@ -6,18 +6,25 @@ import {
     Checkbox,
     Button,
     Typography,
+    Select,
+    Option,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 import SocialLogins from '../components/SocialLogins/SocialLogins';
 import Banner from '../components/Banner/Banner';
 
 const Signup = () => {
+    const { register, handleSubmit } = useForm();
     const links = [
         {
             "label": "Sign Up",
             "url": "/signup"
         },
     ];
+    const handleRegisterUser = (data) => {
+        console.log(data);
+    }
     return (
         <>
             <Banner links={links}></Banner>
@@ -31,11 +38,27 @@ const Signup = () => {
                             Enter your details to register.
                         </Typography>
                     </div>
-                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(handleRegisterUser)}>
                         <div className="mb-4 flex flex-col gap-6">
-                            <Input size="lg" label="Name" />
-                            <Input size="lg" label="Email" />
-                            <Input type="password" size="lg" label="Password" />
+                            <fieldset className="flex flex-col md:flex-row gap-1">
+                                <Input type='text' size="lg" label="Full name" />
+                                <Input type='email' size="lg" label="Email" />
+                            </fieldset>
+                            <fieldset className="flex flex-col md:flex-row gap-1">
+                                <Input type="password" size="lg" label="Password" />
+                                <Input type="password" size="lg" label="Confirm Password" />
+                            </fieldset>
+                            <fieldset className="flex flex-col md:flex-row gap-1">
+                                <Input type="text" size="lg" label="Photo URL" />
+                                <Select label="Select Gender">
+                                    <Option>Male</Option>
+                                    <Option>Female</Option>
+                                </Select>
+                            </fieldset>
+                            <fieldset className="flex flex-col md:flex-row gap-1">
+                                <Input type="number" size="lg" label="Phone No" />
+                                <Input type="text" size="lg" label="Address" />
+                            </fieldset>
                         </div>
                         <Checkbox
                             label={
@@ -46,12 +69,12 @@ const Signup = () => {
                                         className="flex items-center font-normal"
                                     >
                                         I agree the
-                                        <a
-                                            href="#"
+                                        <Link
+                                            to={`/terms`}
                                             className="font-medium transition-colors hover:text-blue-500"
                                         >
                                             &nbsp;Terms and Conditions
-                                        </a>
+                                        </Link>
                                     </Typography>
                                 )
                             }

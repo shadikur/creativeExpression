@@ -13,10 +13,7 @@ const AddUsers = () => {
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
-                                <Input id="firstname" type="text" label='First name' />
-                            </div>
-                            <div className="col-span-full sm:col-span-3">
-                                <Input id="lastname" type="text" label='Last name' />
+                                <Input id="fullname" type="text" label='Full name' />
                             </div>
                             <div className="col-span-full sm:col-span-3">
                                 <Input id="email" type="email" label='Email' />
