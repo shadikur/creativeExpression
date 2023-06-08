@@ -7,6 +7,8 @@ import {
     Button,
     Typography,
 } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
+import SocialLogins from '../components/SocialLogins/SocialLogins';
 
 const Signup = () => {
     return (
@@ -49,13 +51,19 @@ const Signup = () => {
                     </Button>
                     <Typography color="gray" className="mt-4 text-center font-normal">
                         Already have an account?{" "}
-                        <a
-                            href="#"
+                        <Link
+                            to={`/signin`}
                             className="font-medium text-blue-500 transition-colors hover:text-blue-700"
                         >
                             Sign In
-                        </a>
+                        </Link>
                     </Typography>
+                    <div className="flex items-center pt-4 space-x-1 mt-4">
+                        <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
+                        <p className="px-3 text-sm dark:text-gray-400">Signup with social accounts</p>
+                        <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
+                    </div>
+                    <SocialLogins></SocialLogins>
                 </form>
             </Card>
         </div>

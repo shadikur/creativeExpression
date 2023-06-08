@@ -29,12 +29,6 @@ const routes = createBrowserRouter([
                 path: "/contact",
                 element: <Contact></Contact>
             },
-        ]
-    },
-    {
-        path: "public/",
-        element: <Default></Default>,
-        children: [
             {
                 path: "signin",
                 element: <Signin></Signin>
@@ -43,6 +37,16 @@ const routes = createBrowserRouter([
                 path: "signup",
                 element: <Signup></Signup>
             }
+
+
+        ]
+    },
+    {
+        path: "/public",
+        element: <Default></Default>,
+        children: [
+
+
         ]
     }
 ]);
