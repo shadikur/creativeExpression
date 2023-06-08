@@ -9,6 +9,11 @@ import Classes from "../pages/Classes";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../layout/DashboardLayout";
 import AddCourse from "../pages/Dashboard/AddCourse";
+import AddUsers from "../pages/Dashboard/AddUsers";
+import ViewCourses from "../pages/Dashboard/ViewCourses";
+import ViewCourseCategory from "../pages/Dashboard/ViewCourseCategory";
+import AddCourseCategory from "../pages/Dashboard/AddCourseCategory";
+import ViewAllUsers from "../pages/Dashboard/ViewAllUsers";
 
 const routes = createBrowserRouter([
     {
@@ -57,24 +62,24 @@ const routes = createBrowserRouter([
                 element: <AddCourse></AddCourse>,
             },
             {
-                path: "viewcourse",
-                element: <AddCourse></AddCourse>,
+                path: "viewcourses",
+                element: <ViewCourses></ViewCourses>
             },
             {
                 path: "addusers",
-                element: <AddCourse></AddCourse>,
+                element: <AddUsers></AddUsers>
             },
             {
                 path: "viewusers",
-                element: <AddCourse></AddCourse>,
+                element: <ViewAllUsers></ViewAllUsers>
             },
             {
                 path: "addcoursecategory",
-                element: <AddCourse></AddCourse>,
+                element: <AddCourseCategory></AddCourseCategory>
             },
             {
                 path: "viewcoursecategory",
-                element: <AddCourse></AddCourse>,
+                element: <ViewCourseCategory></ViewCourseCategory>
             },
 
 
