@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
     Card,
@@ -13,9 +13,11 @@ import { Link } from 'react-router-dom';
 import { Controller, useForm } from "react-hook-form";
 import SocialLogins from '../components/SocialLogins/SocialLogins';
 import Banner from '../components/Banner/Banner';
+import { CoreContext } from '../AppContext/AppContext';
 
 const Signup = () => {
     const { register, handleSubmit, getValues, formState: { errors }, control } = useForm();
+    const { signUp } = useContext(CoreContext);
 
     const onSubmit = (data) => {
         console.log(data);
