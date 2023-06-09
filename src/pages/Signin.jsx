@@ -26,12 +26,12 @@ const Signin = () => {
             <Banner links={links}></Banner>
             <div className='max-w-md mx-auto m-20'>
 
-                <Card color="transparent" shadow={false} className='flex flex-col items-center'>
+                <Card color="transparent" shadow={false} className='flex flex-col items-center dark:text-white'>
                     <div className='flex flex-col items-center'>
-                        <Typography variant="h4" color="blue-gray">
+                        <Typography variant="h4" className="">
                             Sign In
                         </Typography>
-                        <Typography color="gray" className="mt-1 font-normal">
+                        <Typography className="mt-1 font-normal">
                             Enter your details to login.
                         </Typography>
                     </div>
@@ -44,7 +44,7 @@ const Signin = () => {
                         <Button className="mt-6" fullWidth>
                             Sign In
                         </Button>
-                        <Typography color="gray" className="mt-4 text-center font-normal">
+                        <Typography className="mt-4 text-center font-normal">
                             New here?{" "}
                             <Link
                                 to={`/signup`}

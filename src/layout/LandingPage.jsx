@@ -7,11 +7,13 @@ import Container from './Container';
 const LandingPage = () => {
 
     return (
-        <Container>
-            <Header></Header>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </Container>
+        <div className='dark:bg-gray-800'>
+            <Container>
+                <Header></Header>
+                <Outlet></Outlet>
+                <Footer></Footer>
+            </Container>
+        </div>
     );
 };
 

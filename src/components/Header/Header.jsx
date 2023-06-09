@@ -79,7 +79,7 @@ const Header = () => {
 
     return (
         <>
-            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-[#292929] mt-2 rounded-xl shadow-2xl">
+            <Navbar className="sticky inset-0 z-10 h-max max-w-full py-2 px-4 lg:px-8 lg:py-4 bg-white dark:bg-[#292929] pt-2 mb-2 rounded-xl shadow-2xl border-none">
                 <div className="flex items-center justify-between text-blue-gray-900 dark:text-white">
                     <Logo></Logo>
                     <div className="flex items-center gap-4">
