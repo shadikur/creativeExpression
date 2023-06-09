@@ -10,24 +10,24 @@ import {
     Option,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import SocialLogins from '../components/SocialLogins/SocialLogins';
 import Banner from '../components/Banner/Banner';
 
 const Signup = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, getValues, formState: { errors }, control } = useForm();
 
+    const onSubmit = (data) => {
+        console.log(data);
+    };
+
+    // BreadCrumb Links
     const links = [
         {
             "label": "Sign Up",
             "url": "/signup"
         },
     ];
-
-
-    const handleRegisterUser = (data) => {
-        console.log(data);
-    };
 
     return (
         <>
@@ -41,23 +41,82 @@ const Signup = () => {
                         <Typography className="mt-1 font-normal">
                             Enter your details to register.
                         </Typography>
+                        <hr />
+                        {errors.name && <span className="text-red-600">* {errors.name.message}</span>}
+                        {errors.email && <span className="text-red-600">* {errors.email.message} </span>}
+                        {errors.password && <span className="text-red-600">* {errors.password.message}</span>}
+                        {errors.confirmPassword && <span className="text-red-600">* {errors.confirmPassword.message}</span>}
+
                     </div>
-                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(handleRegisterUser)}>
+                    <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-4 flex flex-col gap-6">
                             <fieldset className="flex flex-col md:flex-row gap-1">
-                                <Input type='text' size="lg" label="Full name" {...register("name")} />
-                                <Input type='email' size="lg" label="Email" {...register("email")} />
+                                <Input
+                                    type="text"
+                                    size="lg"
+                                    label="Full name"
+                                    {...register("name", {
+                                        required: 'Name is required',
+                                        pattern: {
+                                            value: /^[A-Za-z\s]+$/,
+                                            message: 'Invalid name format'
+                                        },
+                                        minLength: {
+                                            value: 3,
+                                            message: 'Name must be at least 3 characters'
+                                        }
+                                    })}
+                                />
+
+                                <Input type='text' size="lg" label="Email" {...register("email", {
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^\S+@\S+\.\S+$/,
+                                        message: 'Invalid email format'
+                                    }
+                                })} />
                             </fieldset>
                             <fieldset className="flex flex-col md:flex-row gap-1">
-                                <Input type="password" size="lg" label="Password" {...register("password")} />
-                                <Input type="password" size="lg" label="Confirm Password" {...register("confirmPassword")} />
+                                <Input
+                                    type="password"
+                                    size="lg"
+                                    label="Password"
+                                    {...register("password", {
+                                        required: 'Password is required',
+                                        minLength: {
+                                            value: 6,
+                                            message: 'Password must be at least 6 characters'
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: 'Password must not exceed 16 characters'
+                                        }
+                                    })}
+                                />
+
+                                <Input type="password" size="lg" label="Confirm Password" {...register("confirmPassword", {
+                                    required: "Please confirm password!",
+                                    validate: {
+                                        matchesPreviousPassword: (value) => {
+                                            const { password } = getValues();
+                                            return password === value || "Passwords should match!";
+                                        }
+                                    }
+                                })} />
                             </fieldset>
                             <fieldset className="flex flex-col md:flex-row gap-1">
-                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} />
-                                <Select label="Select Gender" {...register("gender")}>
-                                    <Option>Male</Option>
-                                    <Option>Female</Option>
-                                </Select>
+                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} defaultValue={`https://res.cloudinary.com/ddez9nchs/image/upload/v1686293428/CreativeExpressions/placeholder-image-person-jpg.jpg`} />
+                                <Controller
+                                    control={control}
+                                    name="gender"
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <Select label="Select Gender" {...field}>
+                                            <Option value="male">Male</Option>
+                                            <Option value="female">Female</Option>
+                                        </Select>
+                                    )}
+                                />
                             </fieldset>
                             <fieldset className="flex flex-col md:flex-row gap-1">
                                 <Input type="number" size="lg" label="Phone No" {...register("phone")} />
@@ -85,9 +144,10 @@ const Signup = () => {
                             containerProps={{ className: "-ml-2.5" }}
                             {...register("terms")}
                         />
-                        <Button className="mt-6" fullWidth>
+                        <Button type='submit' className="mt-6" fullWidth>
                             Sign Up
                         </Button>
+
                         <Typography className="mt-4 text-center font-normal">
                             Already have an account?{" "}
                             <Link

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const Logo = () => {
     const { theme } = useContext(CoreContext);
-    console.log(theme);
     return (
         <div>
             {
