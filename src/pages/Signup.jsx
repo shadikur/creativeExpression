@@ -14,13 +14,49 @@ import { Controller, useForm } from "react-hook-form";
 import SocialLogins from '../components/SocialLogins/SocialLogins';
 import Banner from '../components/Banner/Banner';
 import { CoreContext } from '../AppContext/AppContext';
+import userMiniSwal from '../hooks/userMiniSwal';
+import useAxios from './../hooks/useAxios';
 
 const Signup = () => {
-    const { register, handleSubmit, getValues, formState: { errors }, control } = useForm();
-    const { signUp } = useContext(CoreContext);
+    const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
+    const { registerUser, parseCode } = useContext(CoreContext);
+    const axios = useAxios();
 
     const onSubmit = (data) => {
-        console.log(data);
+        //Logic to register user and send data to backend using axios
+        registerUser(data.email, data.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user);
+                userMiniSwal('success', 'User registered successfully');
+                // send data to backend
+                axios.post('/users', {
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                    confirmPassword: data.confirmPassword,
+                    role: 'student',
+                })
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                reset();
+                // ...
+            }
+            )
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+                userMiniSwal('error', parseCode(errorCode));
+                // ..
+            }
+            );
     };
 
     // BreadCrumb Links
@@ -121,7 +157,7 @@ const Signup = () => {
                                 />
                             </fieldset>
                             <fieldset className="flex flex-col md:flex-row gap-1">
-                                <Input type="number" size="lg" label="Phone No" {...register("phone")} />
+                                <Input type="text" size="lg" label="Phone No" {...register("phone")} />
                                 <Input type="text" size="lg" label="Address" {...register("address")} />
                             </fieldset>
                         </div>

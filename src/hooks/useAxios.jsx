@@ -42,7 +42,7 @@ const useAxios = () => {
 
     }, [logOut]);
 
-    return [instance];
+    return instance;
 };
 
 export default useAxios;

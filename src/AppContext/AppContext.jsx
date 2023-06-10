@@ -21,12 +21,12 @@ const AppContext = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const signUp = (email, password) => {
+    const registerUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
-    const signIn = (email, password) => {
+    const loginUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
@@ -42,17 +42,27 @@ const AppContext = ({ children }) => {
     };
 
     useEffect(() => {
-        const offLoad = onAuthStateChanged(auth, (currentlyLogged) => {
+        const userObserver = onAuthStateChanged(auth, (currentlyLogged) => {
             setUser(currentlyLogged);
             setLoading(false);
+
+            // Set the authorization token for all requests
+            if (currentlyLogged) {
+                currentlyLogged.getIdToken().then((token) => {
+                    localStorage.setItem('token', token);
+                });
+            }
+            else {
+                localStorage.removeItem('token');
+            }
         });
 
         return () => {
-            offLoad();
+            userObserver();
         };
     }, []);
 
-    const profileUpdate = (displayName, photoURL) => {
+    const updateUserProfile = (displayName, photoURL) => {
         setLoading(true);
         return updateProfile(auth.currentUser, {
             displayName,
@@ -72,21 +82,44 @@ const AppContext = ({ children }) => {
         }
     }, [theme]);
 
+    // Firebase parse error codes
+    const parseCode = (authCode) => {
+        switch (authCode) {
+            case "auth/invalid-password":
+                return "Password provided is not corrected";
+            case "auth/invalid-email":
+                return "Email provided is invalid";
+            case "auth/weak-password":
+                return "Weak password (Min. 6 Chars Required)";
+            case "auth/email-already-in-use":
+                return "Email already in use!"
+            case "auth/user-not-found":
+                return "Account does not exist! Please signup."
+            case "auth/wrong-password":
+                return "Wrong password!"
+            default:
+                return "Something wrong! Please try again.";
+        }
+    }
+
     const ContextMethods = {
         user,
         loading,
         setLoading,
-        signIn,
-        signUp,
+        loginUser,
+        registerUser,
         GoogleSignIn,
         logOut,
-        profileUpdate,
+        updateUserProfile,
         theme,
         setTheme,
+        parseCode
     };
 
     return (
-        <CoreContext.Provider value={ContextMethods}>{children}</CoreContext.Provider>
+        <CoreContext.Provider value={ContextMethods}>
+            {children}
+        </CoreContext.Provider>
     );
 };
 
