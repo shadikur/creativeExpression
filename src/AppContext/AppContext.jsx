@@ -10,6 +10,8 @@ import {
     signInWithPopup,
     updateProfile,
 } from "firebase/auth";
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const CoreContext = createContext(null);
 
@@ -41,14 +43,64 @@ const AppContext = ({ children }) => {
         return signOut(auth);
     };
 
+    const getIdToken = (email) => {
+        const response = axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth`, { email });
+        return response;
+    };
+
+    const [photo, setPhoto] = useState("");
+
+    // Upload image to blob storage
+    const uploadImage = async (e) => {
+        const { value: file } = await Swal.fire({
+            title: 'Select image',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/*',
+                'aria-label': 'Upload your profile picture'
+            }
+        });
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    const response = await fetch('https://blob.mylab.shadikur.com/multer', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            Authorization: import.meta.env.VITE_BLOB_TOKEN,
+                        }
+                    });
+
+                    const result = await response.json();
+                    console.log(result);
+                    setPhoto(result.imageUrl);
+
+                    Swal.fire({
+                        title: 'Your uploaded picture',
+                        imageUrl: e.target.result,
+                        imageAlt: 'The uploaded picture'
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+
     useEffect(() => {
         const userObserver = onAuthStateChanged(auth, (currentlyLogged) => {
             setUser(currentlyLogged);
             setLoading(false);
-
             // Set the authorization token for all requests
             if (currentlyLogged) {
-                currentlyLogged.getIdToken().then((token) => {
+                currentlyLogged.getIdToken(currentlyLogged.email).then((token) => {
                     localStorage.setItem('token', token);
                 });
             }
@@ -98,7 +150,7 @@ const AppContext = ({ children }) => {
             case "auth/wrong-password":
                 return "Wrong password!"
             default:
-                return "Something wrong! Please try again.";
+                return `${authCode}`;
         }
     }
 
@@ -113,7 +165,10 @@ const AppContext = ({ children }) => {
         updateUserProfile,
         theme,
         setTheme,
-        parseCode
+        parseCode,
+        uploadImage,
+        photo,
+        setPhoto
     };
 
     return (

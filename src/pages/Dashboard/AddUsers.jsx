@@ -1,80 +1,77 @@
-import { Input, Select, Option, Button } from '@material-tailwind/react';
-import React, { useContext } from 'react';
+import { Input, Select, Option, Button, Typography } from '@material-tailwind/react';
+import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { CoreContext } from '../../AppContext/AppContext';
 import useAxios from '../../hooks/useAxios';
 import userMiniSwal from '../../hooks/userMiniSwal';
+import { Alert } from "@material-tailwind/react";
+import { InformationCircleIcon } from "@heroicons/react/24/outline"
+
 
 const AddUsers = () => {
 
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
-    const { registerUser, parseCode } = useContext(CoreContext);
+    const { registerUser, parseCode, uploadImage, photo } = useContext(CoreContext);
     const axios = useAxios();
 
-    const onSubmit = (data) => {
-        //Logic to register user and send data to backend using axios
-        console.log(data);
-        if (data.image) {
-            const formData = new FormData();
-            formData.append('file', data.image[0]);
-            axios.post('/multer', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-                .then((response) => {
-                    console.log(response);
-                    const imageUrl = response.data.imageUrl;
-                    console.log(imageUrl);
-                }
-                )
-                .catch((error) => {
-                    console.log(error);
-                });
+    const onSubmit = async (data) => {
+
+        try {
+
+            // register user to firebase
+            const response = await registerUser(data.email, data.password);
+            const { uid } = response.user;
+
+            // send data to backend
+            await axios.post('/users', {
+                name: data.name,
+                email: data.email,
+                role: data.role,
+                phone: data.phone,
+                address: data.address,
+                gender: data.gender,
+                photourl: data.photourl,
+            }).then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            });
+            userMiniSwal('success', 'User added successfully!');
+            reset();
+        } catch (error) {
+            const errorCode = error.code;
+            userMiniSwal('error', parseCode(errorCode));
         }
-
-        // registerUser(data.email, data.password)
-        //     .then((userCredential) => {
-        //         // Signed in 
-        //         const user = userCredential.user;
-        //         console.log(user);
-        //         userMiniSwal('success', 'User added successfully!');
-        //         // send data to backend
-        //         axios.post('/users', {
-        //             name: data.name,
-        //             email: data.email,
-        //             password: data.password,
-        //             confirmPassword: data.confirmPassword,
-        //             role: 'student',
-        //         })
-        //             .then((response) => {
-        //                 console.log(response);
-        //             })
-        //             .catch((error) => {
-        //                 console.log(error);
-        //             });
-
-        //         reset();
-        //         // ...
-        //     }
-        //     )
-        //     .catch((error) => {
-        //         const errorCode = error.code;
-        //         const errorMessage = error.message;
-        //         console.log(errorCode, errorMessage);
-        //         userMiniSwal('error', parseCode(errorCode));
-        //         // ..
-        //     }
-        //     );
     };
+
 
     return (
         <>
             <section className="p-8 pb-10 dark:bg-gray-800 dark:text-gray-50 mt-4 bg-white rounded-2xl shadow-xl">
-                {errors.name && <span className="text-red-600">* {errors.name.message}</span>}
-                {errors.email && <span className="text-red-600">* {errors.email.message} </span>}
-                {errors.password && <span className="text-red-600">* {errors.password.message}</span>}
-                {errors.confirmPassword && <span className="text-red-600">* {errors.confirmPassword.message}</span>}
+                {
+                    (Object.keys(errors).length > 0) && (
+                        <div className="flex w-full flex-col gap-2">
+                            <Alert
+                                variant="gradient"
+                                color="red"
+                                icon={
+                                    <InformationCircleIcon
+                                        strokeWidth={2}
+                                        className="h-6 w-6"
+                                    />
+                                }
+                            >
+                                <Typography className="font-medium">Ensure that these requirements are met:</Typography>
+                                <ul className="mt-2 ml-2 list-disc list-inside">
+                                    {errors.name && <li>{errors.name.message}</li>}
+                                    {errors.email && <li>{errors.email.message}</li>}
+                                    {errors.password && <li>{errors.password.message}</li>}
+                                    {errors.confirmPassword && <li>{errors.confirmPassword.message}</li>}
+                                </ul>
+                            </Alert>
+                        </div>
+                    )
+                }
                 <form className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
                         <div className="space-y-2 col-span-full lg:col-span-1">
@@ -172,15 +169,17 @@ const AddUsers = () => {
                                 <Controller
                                     control={control}
                                     name="role"
-                                    defaultValue=""
+                                    defaultValue="Student"
                                     render={({ field }) => (
-                                        <Select label="Select user role" {...field} >
-                                            <Option>Student</Option>
-                                            <Option>Instructor</Option>
-                                            <Option>Administrator</Option>
-                                        </Select>)}
+                                        <Select label="Select user role" {...field}>
+                                            <Option value="Student">Student</Option>
+                                            <Option value="Instructor">Instructor</Option>
+                                            <Option value="Administrator">Administrator</Option>
+                                        </Select>
+                                    )}
                                 />
                             </div>
+
 
                         </div>
                     </fieldset>
@@ -191,14 +190,15 @@ const AddUsers = () => {
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
-                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} defaultValue={`https://res.cloudinary.com/ddez9nchs/image/upload/v1686293428/CreativeExpressions/placeholder-image-person-jpg.jpg`} />
+                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} defaultValue={photo} value={photo} />
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                <Input id="website" type="file" label='Upload Photo' {...register("image")} />
+                                {/* <Input id="website" type="file" label='Upload Photo' {...register("image")} /> */}
+                                <Button color="blue" ripple={true} onClick={uploadImage}>Upload Photo</Button>
                             </div>
                         </div>
                     </fieldset>
-                    <Button color="blue" ripple="light" type="submit">Add User</Button>
+                    <Button color="blue" ripple={true} type="submit">Add User</Button>
                 </form>
             </section>
         </>

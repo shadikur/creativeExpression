@@ -35,7 +35,7 @@ const useAxios = () => {
                 if (error.response.status === 401 || error.response.status === 403) {
                     localStorage.removeItem('token');
                     await logOut();
-                    window.location.href = '/login';
+                    window.location.href = '/signin';
                 }
                 return Promise.reject(error);
             });

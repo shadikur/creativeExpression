@@ -34,9 +34,11 @@ const Signup = () => {
                 axios.post('/users', {
                     name: data.name,
                     email: data.email,
-                    password: data.password,
-                    confirmPassword: data.confirmPassword,
-                    role: 'student',
+                    role: 'Student',
+                    photourl: data.photourl,
+                    gender: data.gender,
+                    phone: data.phone,
+                    address: data.address,
                 })
                     .then((response) => {
                         console.log(response);
@@ -84,6 +86,7 @@ const Signup = () => {
                         {errors.email && <span className="text-red-600">* {errors.email.message} </span>}
                         {errors.password && <span className="text-red-600">* {errors.password.message}</span>}
                         {errors.confirmPassword && <span className="text-red-600">* {errors.confirmPassword.message}</span>}
+                        {errors.terms && <span className="text-red-600">* {errors.terms.message}</span>}
 
                     </div>
                     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
@@ -180,7 +183,7 @@ const Signup = () => {
                                 )
                             }
                             containerProps={{ className: "-ml-2.5" }}
-                            {...register("terms")}
+                            {...register("terms", { required: "Please accept terms and conditions" })}
                         />
                         <Button type='submit' className="mt-6" fullWidth>
                             Sign Up
