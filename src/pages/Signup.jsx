@@ -9,8 +9,8 @@ import {
     Select,
     Option,
 } from "@material-tailwind/react";
-import { Link } from 'react-router-dom';
-import { Controller, useForm } from "react-hook-form";
+import { Link, useNavigate } from 'react-router-dom';
+import { Controller, set, useForm } from "react-hook-form";
 import SocialLogins from '../components/SocialLogins/SocialLogins';
 import Banner from '../components/Banner/Banner';
 import { CoreContext } from '../AppContext/AppContext';
@@ -21,16 +21,16 @@ const Signup = () => {
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
     const { registerUser, parseCode } = useContext(CoreContext);
     const axios = useAxios();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        //Logic to register user and send data to backend using axios
+        // Logic to register user and send data to backend using axios
         registerUser(data.email, data.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
-                userMiniSwal('success', 'User registered successfully');
-                // send data to backend
+                // Send data to backend
                 axios.post('/users', {
                     name: data.name,
                     email: data.email,
@@ -46,15 +46,17 @@ const Signup = () => {
                     .catch((error) => {
                         console.log(error);
                     });
-
                 reset();
-                // ...
-            }
-            )
+                userMiniSwal('success', 'User registered successfully');
+                setTimeout(() => {
+                    userMiniSwal('info', 'We are taking you to the home page');
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 1000);
+                }, 2000);
+            })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
                 userMiniSwal('error', parseCode(errorCode));
                 // ..
             }
