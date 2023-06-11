@@ -36,6 +36,7 @@ const AddUsers = () => {
                 address: data.address,
                 gender: data.gender,
                 photourl: data.photourl,
+                registered: new Date().toLocaleDateString(),
             }).then(res => {
                 console.log(res);
             }).catch(err => {
@@ -179,7 +180,7 @@ const AddUsers = () => {
                                         <Select label="Select user role" {...field}>
                                             <Option value="Student">Student</Option>
                                             <Option value="Instructor">Instructor</Option>
-                                            <Option value="Administrator">Administrator</Option>
+                                            <Option value="Administrator">Admin</Option>
                                         </Select>
                                     )}
                                 />

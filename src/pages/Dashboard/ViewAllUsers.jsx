@@ -12,8 +12,11 @@ import {
     Avatar,
     IconButton,
     Tooltip,
+    Badge,
+    Chip,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ViewAllUsers = () => {
     const axios = useAxios();
@@ -60,6 +63,34 @@ const ViewAllUsers = () => {
     if (isError) {
         return <div>Error fetching users</div>;
     }
+
+    const handleDelete = async (userId) => {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    axios.delete(`/deleteuser/${userId}`);
+                    refetch();
+                } catch (error) {
+                    console.error('Error deleting user:', error);
+                    throw error;
+                }
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
+    };
 
 
     const TABLE_HEAD = ["Member", "Email", "Role", "Registered", "Actions"];
@@ -122,7 +153,7 @@ const ViewAllUsers = () => {
                                     <td className={classes}>
                                         <div className="flex flex-col">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                                {email}
+                                                {email} {(email == import.meta.env.VITE_ADMIN_EMAIL) && <Chip value="App Admin" color='red' className='w-fit' />}
                                             </Typography>
 
                                         </div>
@@ -144,11 +175,14 @@ const ViewAllUsers = () => {
                                                     <PencilIcon className="h-4 w-4" color='green' />
                                                 </IconButton>
                                             </Tooltip>
-                                            <Tooltip content="Delete User">
-                                                <IconButton variant="text" color="blue-gray">
-                                                    <XMarkIcon className="h-4 w-4" color='red' size="sm" />
-                                                </IconButton>
-                                            </Tooltip>
+                                            {
+                                                (email !== import.meta.env.VITE_ADMIN_EMAIL) ? <Tooltip content="Delete User">
+                                                    <IconButton variant="text" color="blue-gray">
+                                                        <XMarkIcon className="h-4 w-4" color='red' size="sm" onClick={() => handleDelete(_id)} />
+                                                    </IconButton>
+                                                </Tooltip> : ''
+                                            }
+
                                         </div>
                                         <div className='space-x-1'>
                                             {
