@@ -5,7 +5,7 @@ import { CoreContext } from '../../AppContext/AppContext';
 import useAxios from '../../hooks/useAxios';
 import userMiniSwal from '../../hooks/userMiniSwal';
 import { Alert } from "@material-tailwind/react";
-import { InformationCircleIcon } from "@heroicons/react/24/outline"
+import { InformationCircleIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline"
 
 
 const AddUsers = () => {
@@ -205,7 +205,9 @@ const AddUsers = () => {
                                 />
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                <Button color="blue" ripple={true} onClick={uploadImage}>Upload Photo</Button>
+                                <Button variant="gradient" className="flex items-center gap-3" onClick={uploadImage}>
+                                    <CloudArrowUpIcon strokeWidth={2} className="h-5 w-5" /> Upload Photo
+                                </Button>
                             </div>
                         </div>
                     </fieldset>

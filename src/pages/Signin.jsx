@@ -13,8 +13,9 @@ import SocialLogins from '../components/SocialLogins/SocialLogins';
 import useTitle from './../hooks/useTitle';
 import { InformationCircleIcon } from "@heroicons/react/24/outline"
 import { CoreContext } from '../AppContext/AppContext';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import useAxios from '../hooks/useAxios';
+import userMiniSwal from '../hooks/userMiniSwal';
 
 const Signin = () => {
 
@@ -24,9 +25,8 @@ const Signin = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-        console.log(data);
+
         try {
-            console.log(data);
             const response = await loginUser(data.email, data.password);
             const { user } = response;
             if (user) {
@@ -34,10 +34,14 @@ const Signin = () => {
                 const { data: { token } } = await axios.post('/auth', { email });
                 localStorage.setItem('token', token);
                 await parseCode(token);
-                navigate('/');
+                userMiniSwal('success', 'Logged in successfully');
+                setTimeout(() => {
+                    navigate('/');
+                }, 1000);
             }
         } catch (error) {
-            console.log(error);
+            userMiniSwal('error', parseCode(error.code));
+
         }
     };
 

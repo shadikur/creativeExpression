@@ -18,19 +18,20 @@ import { CoreContext } from '../AppContext/AppContext';
 import userMiniSwal from '../hooks/userMiniSwal';
 import useAxios from './../hooks/useAxios';
 import { InformationCircleIcon } from "@heroicons/react/24/outline"
+import { BsCloudUpload } from "react-icons/bs";
 
 const Signup = () => {
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
-    const { registerUser, parseCode, updateUserProfile } = useContext(CoreContext);
+    const { registerUser, parseCode, updateUserProfile, uploadImage, photo, setPhoto } = useContext(CoreContext);
     const axios = useAxios();
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         // Logic to register user and send data to backend using axios
         await registerUser(data.email, data.password)
-            .then((userCredential) => {
+            .then((userCrederegisterationDate) => {
                 // Signed in 
-                const user = userCredential.user;
+                const registerDate = new Date(userCrederegisterationDate.user.metadata.creationTime).toLocaleDateString();
                 // Send data to backend
                 axios.post('/users', {
                     name: data.name,
@@ -40,6 +41,7 @@ const Signup = () => {
                     gender: data.gender,
                     phone: data.phone,
                     address: data.address,
+                    registered: registerDate
                 })
                     .then((response) => {
                         console.log(response);
@@ -110,6 +112,7 @@ const Signup = () => {
                                             {errors.email && <li>{errors.email.message}</li>}
                                             {errors.password && <li>{errors.password.message}</li>}
                                             {errors.confirmPassword && <li>{errors.confirmPassword.message}</li>}
+                                            {errors.terms && <li>{errors.terms.message}</li>}
                                         </ul>
                                     </Alert>
                                 </div>
@@ -174,7 +177,10 @@ const Signup = () => {
                                 })} />
                             </fieldset>
                             <fieldset className="flex flex-col md:flex-row gap-1">
-                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} defaultValue={`https://res.cloudinary.com/ddez9nchs/image/upload/v1686293428/CreativeExpressions/placeholder-image-person-jpg.jpg`} />
+                                <Input type="text" size="lg" label="Photo URL or Upload" {...register("photourl")} value={photo}
+                                    onChange={(e) => setPhoto(e.target.value)} icon={
+                                        <BsCloudUpload onClick={uploadImage} color='blue' title='Click here to upload'></BsCloudUpload>
+                                    } />
                                 <Controller
                                     control={control}
                                     name="gender"

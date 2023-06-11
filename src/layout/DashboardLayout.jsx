@@ -9,7 +9,7 @@ const DashboardLayout = () => {
             <div className=' p-5'>
                 <Sidebar></Sidebar>
             </div>
-            <div className='col-span-4 max-w-screen-lg mx-auto p-4'>
+            <div className='col-span-4 w-full md:w-[70vw] mx-auto p-4'>
                 <Stats></Stats>
                 <Outlet></Outlet>
             </div>

@@ -2,14 +2,41 @@ import React, { useContext } from 'react';
 import { CoreContext } from '../../AppContext/AppContext';
 import userMiniSwal from '../../hooks/userMiniSwal';
 import { useNavigate } from 'react-router-dom';
+import useAxios from '../../hooks/useAxios';
 
 const SocialLogins = () => {
     const { GoogleSignIn, parseCode, GithubLogin } = useContext(CoreContext);
     const navigate = useNavigate();
+    const axios = useAxios();
 
     const handleGoogleSignIn = () => {
         GoogleSignIn().then((response) => {
-            console.log(response);
+            //check if user is new
+            if (response._tokenResponse.isNewUser) {
+                // Signed in 
+                const registerDate = new Date(response.user.metadata.creationTime).toLocaleDateString();
+                // Send data to backend
+                axios.post('/users', {
+                    name: response.user?.displayName,
+                    email: response.user?.email,
+                    role: 'Student',
+                    photourl: response.user?.photoURL,
+                    gender: '',
+                    phone: response.user?.phoneNumber,
+                    address: '',
+                    registered: registerDate
+                })
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            else {
+                console.log('old user');
+            }
+
             userMiniSwal('success', 'Success', 'You have successfully logged in');
             setTimeout(() => {
                 userMiniSwal('info', 'We are taking you to the home page');
@@ -27,6 +54,28 @@ const SocialLogins = () => {
     const handleGithubSignIn = () => {
         GithubLogin().then((response) => {
             console.log(response);
+            //check if user is new
+            if (response._tokenResponse.isNewUser) {
+                // Signed in 
+                const registerDate = new Date(response.user.metadata.creationTime).toLocaleDateString();
+                // Send data to backend
+                axios.post('/users', {
+                    name: response.user?.displayName,
+                    email: response.user?.email,
+                    role: 'Student',
+                    photourl: response.user?.photoURL,
+                    gender: '',
+                    phone: response.user?.phoneNumber,
+                    address: '',
+                    registered: registerDate
+                })
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
             userMiniSwal('success', 'Success', 'You have successfully logged in');
             setTimeout(() => {
                 userMiniSwal('info', 'We are taking you to the home page');
