@@ -9,15 +9,30 @@ import {
     MenuHandler,
     MenuList,
     MenuItem,
+    Avatar,
 } from "@material-tailwind/react";
 import { MdDarkMode } from "react-icons/md";
 import { BsSun } from "react-icons/bs";
 import Logo from '../Logo/Logo';
 import { CoreContext } from '../../AppContext/AppContext';
 import { Link, NavLink } from 'react-router-dom';
+import userMiniSwal from '../../hooks/userMiniSwal';
 
 const Header = () => {
+    const { user, logOut } = useContext(CoreContext);
     const [openNav, setOpenNav] = useState(false);
+    const handleLogOut = async () => {
+        await logOut().then(() => {
+            userMiniSwal('success', 'Logged out successfully');
+            setTimeout(() => {
+                window.location.href = '/';
+            }
+                , 1000);
+
+        });
+    };
+
+
     useEffect(() => {
         window.addEventListener(
             "resize",
@@ -90,21 +105,51 @@ const Header = () => {
                                 unmount: { y: 25 },
                             }}
                         >
-                            <MenuHandler>
-                                <Button>Membership</Button>
-                            </MenuHandler>
-                            <MenuList>
-                                <Link to={`/signin`}>
-                                    <MenuItem>
-                                        Sign In
-                                    </MenuItem>
-                                </Link>
-                                <Link to={`/signup`}>
-                                    <MenuItem>
-                                        Sign Up
-                                    </MenuItem>
-                                </Link>
-                            </MenuList>
+                            {
+                                user ? ( // If the user is logged in, show the user menu
+                                    <>
+                                        <MenuHandler>
+                                            <Button>
+                                                <Avatar src={user.photoURL ? user.photoURL : 'https://res.cloudinary.com/ddez9nchs/image/upload/v1686293428/CreativeExpressions/placeholder-image-person-jpg.jpg'} alt="avatar" size='xs' className='mr-2' />
+                                                {user.displayName ? user.displayName.split(" ")[0] : 'UNKNOWN'}
+                                            </Button>
+                                        </MenuHandler>
+                                        <MenuList>
+                                            <Link to={`/dashboard`}>
+                                                <MenuItem>
+                                                    Dashboard
+                                                </MenuItem>
+                                            </Link>
+                                            <MenuItem
+                                                onClick={() => {
+                                                    handleLogOut();
+                                                }}>
+                                                Log Out
+                                            </MenuItem>
+                                        </MenuList>
+                                    </>
+                                ) : ( // If the user is not logged in, show the login menu
+
+                                    <>
+                                        <MenuHandler>
+                                            <Button>Membership</Button>
+                                        </MenuHandler>
+                                        <MenuList>
+                                            <Link to={`/signin`}>
+                                                <MenuItem>
+                                                    Sign In
+                                                </MenuItem>
+                                            </Link>
+                                            <Link to={`/signup`}>
+                                                <MenuItem>
+                                                    Sign Up
+                                                </MenuItem>
+                                            </Link>
+                                        </MenuList>
+                                    </>
+                                )
+                            }
+
                         </Menu>
                         {/* Add a theme switcher */}
                         <button

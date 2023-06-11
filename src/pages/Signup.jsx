@@ -21,17 +21,16 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline"
 
 const Signup = () => {
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
-    const { registerUser, parseCode } = useContext(CoreContext);
+    const { registerUser, parseCode, updateUserProfile } = useContext(CoreContext);
     const axios = useAxios();
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // Logic to register user and send data to backend using axios
-        registerUser(data.email, data.password)
+        await registerUser(data.email, data.password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
                 // Send data to backend
                 axios.post('/users', {
                     name: data.name,
@@ -48,6 +47,12 @@ const Signup = () => {
                     .catch((error) => {
                         console.log(error);
                     });
+                updateUserProfile(data.name, data.photourl).then((resp) => {
+                    console.log('Profile updated');
+                    console.log(resp);
+                }).catch((error) => {
+                    console.log(error);
+                });
                 reset();
                 userMiniSwal('success', 'User registered successfully');
                 setTimeout(() => {

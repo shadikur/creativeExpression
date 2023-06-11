@@ -11,7 +11,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline"
 const AddUsers = () => {
 
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
-    const { registerUser, parseCode, uploadImage, photo } = useContext(CoreContext);
+    const { registerUser, parseCode, uploadImage, photo, setPhoto, updateUserProfile } = useContext(CoreContext);
     const axios = useAxios();
 
     const onSubmit = async (data) => {
@@ -21,6 +21,11 @@ const AddUsers = () => {
             // register user to firebase
             const response = await registerUser(data.email, data.password);
             const { uid } = response.user;
+            updateUserProfile(data.name, data.photourl).then(() => {
+                console.log('user profile updated');
+            }).catch(err => {
+                console.log(err);
+            });
 
             // send data to backend
             await axios.post('/users', {
@@ -190,10 +195,16 @@ const AddUsers = () => {
                         </div>
                         <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                             <div className="col-span-full sm:col-span-3">
-                                <Input type="text" size="lg" label="Photo URL" {...register("photourl")} defaultValue={photo} value={photo} />
+                                <Input
+                                    type="text"
+                                    size="lg"
+                                    label="Photo URL"
+                                    {...register("photourl")}
+                                    value={photo}
+                                    onChange={(e) => setPhoto(e.target.value)}
+                                />
                             </div>
                             <div className="col-span-full sm:col-span-3">
-                                {/* <Input id="website" type="file" label='Upload Photo' {...register("image")} /> */}
                                 <Button color="blue" ripple={true} onClick={uploadImage}>Upload Photo</Button>
                             </div>
                         </div>

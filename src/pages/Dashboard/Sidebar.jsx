@@ -26,14 +26,26 @@ import Logo from '../../components/Logo/Logo';
 import { CoreContext } from '../../AppContext/AppContext';
 import { Link } from 'react-router-dom';
 import { MdOutlineDashboard } from 'react-icons/md';
+import userMiniSwal from '../../hooks/userMiniSwal';
 
 
 const Sidebar = () => {
     const [open, setOpen] = useState(0);
-
     const [openSidebar, setOpenSidebar] = useState(true);
     const openDrawer = () => setOpenSidebar(true);
     const closeDrawer = () => setOpenSidebar(false);
+    const { user, logOut } = useContext(CoreContext);
+
+    const handleLogOut = async () => {
+        await logOut().then(() => {
+            userMiniSwal('success', 'Logged out successfully');
+            setTimeout(() => {
+                window.location.href = '/';
+            }
+                , 1000);
+
+        });
+    };
 
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
@@ -251,7 +263,7 @@ const Sidebar = () => {
                         </ListItem>
                     </Link>
 
-                    <Button className="w-full flex justify-center items-center gap-4" onClick={handleLogout}>
+                    <Button className="w-full flex justify-center items-center gap-4" onClick={handleLogOut}>
                         <PowerIcon className="h-5 w-5" />
                         Log Out
                     </Button>
