@@ -7,6 +7,7 @@ import {
     signOut,
     onAuthStateChanged,
     GoogleAuthProvider,
+    GithubAuthProvider,
     signInWithPopup,
     updateProfile,
 } from "firebase/auth";
@@ -16,7 +17,8 @@ import Swal from 'sweetalert2';
 export const CoreContext = createContext(null);
 
 const auth = getAuth(app);
-const authenticationProvider = new GoogleAuthProvider();
+const GoogleAuth = new GoogleAuthProvider();
+const GithubAuth = new GithubAuthProvider();
 
 const AppContext = ({ children }) => {
 
@@ -35,7 +37,12 @@ const AppContext = ({ children }) => {
 
     const GoogleSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth, authenticationProvider);
+        return signInWithPopup(auth, GoogleAuth);
+    };
+
+    const GithubLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, GithubAuth);
     };
 
     const logOut = () => {
@@ -149,6 +156,8 @@ const AppContext = ({ children }) => {
                 return "Account does not exist! Please signup."
             case "auth/wrong-password":
                 return "Wrong password!"
+            case "auth/popup-closed-by-user":
+                return "Sign In Popup Closed!"
             default:
                 return `${authCode}`;
         }
@@ -161,6 +170,7 @@ const AppContext = ({ children }) => {
         loginUser,
         registerUser,
         GoogleSignIn,
+        GithubLogin,
         logOut,
         updateUserProfile,
         theme,

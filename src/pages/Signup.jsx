@@ -8,6 +8,7 @@ import {
     Typography,
     Select,
     Option,
+    Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
 import { Controller, set, useForm } from "react-hook-form";
@@ -16,6 +17,7 @@ import Banner from '../components/Banner/Banner';
 import { CoreContext } from '../AppContext/AppContext';
 import userMiniSwal from '../hooks/userMiniSwal';
 import useAxios from './../hooks/useAxios';
+import { InformationCircleIcon } from "@heroicons/react/24/outline"
 
 const Signup = () => {
     const { register, handleSubmit, getValues, formState: { errors }, control, reset } = useForm();
@@ -84,11 +86,30 @@ const Signup = () => {
                             Enter your details to register.
                         </Typography>
                         <hr />
-                        {errors.name && <span className="text-red-600">* {errors.name.message}</span>}
-                        {errors.email && <span className="text-red-600">* {errors.email.message} </span>}
-                        {errors.password && <span className="text-red-600">* {errors.password.message}</span>}
-                        {errors.confirmPassword && <span className="text-red-600">* {errors.confirmPassword.message}</span>}
-                        {errors.terms && <span className="text-red-600">* {errors.terms.message}</span>}
+                        {
+                            (Object.keys(errors).length > 0) && (
+                                <div className="flex w-full flex-col gap-2">
+                                    <Alert
+                                        variant="gradient"
+                                        color="red"
+                                        icon={
+                                            <InformationCircleIcon
+                                                strokeWidth={2}
+                                                className="h-6 w-6"
+                                            />
+                                        }
+                                    >
+                                        <Typography className="font-medium">Ensure that these requirements are met:</Typography>
+                                        <ul className="mt-2 ml-2 list-disc list-inside">
+                                            {errors.name && <li>{errors.name.message}</li>}
+                                            {errors.email && <li>{errors.email.message}</li>}
+                                            {errors.password && <li>{errors.password.message}</li>}
+                                            {errors.confirmPassword && <li>{errors.confirmPassword.message}</li>}
+                                        </ul>
+                                    </Alert>
+                                </div>
+                            )
+                        }
 
                     </div>
                     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
@@ -205,8 +226,8 @@ const Signup = () => {
                             <p className="px-3 text-sm dark:text-gray-400">Signup with social accounts</p>
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
                         </div>
-                        <SocialLogins></SocialLogins>
                     </form>
+                    <SocialLogins></SocialLogins>
                 </Card>
             </div>
         </>
