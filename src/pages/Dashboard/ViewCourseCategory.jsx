@@ -2,7 +2,7 @@ import React from 'react';
 import useAxios from './../../hooks/useAxios';
 import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '../../components/Spinner/LoadingSpinner';
-import { PencilIcon, UserPlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { UserPlusIcon } from "@heroicons/react/24/solid";
 import {
     Card,
     CardHeader,
@@ -137,15 +137,17 @@ const ViewCourseCategory = () => {
                                     <td className={classes}>
                                         <div className="flex flex-col">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                                {description}
+                                                <div className='text-ellipsis w-64 text-justify'>
+                                                    {description}
+                                                </div>
                                             </Typography>
 
                                         </div>
                                     </td>
                                     <td className={classes}>
                                         <div className="w-max">
-                                            <img className="w-20 h-20" src={image} alt={name} />
-                                            <code className="text-xs">{image}</code>
+                                            <img className="w-28 h-28 rounded-md" src={image} alt={name} />
+
                                         </div>
                                     </td>
                                     <td className={classes}>

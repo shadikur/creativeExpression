@@ -35,7 +35,7 @@ const AddUsers = () => {
                 phone: data.phone,
                 address: data.address,
                 gender: data.gender,
-                photourl: data.photourl,
+                photourl: photo,
                 registered: new Date().toLocaleDateString(),
             }).then(res => {
                 console.log(res);
@@ -44,6 +44,7 @@ const AddUsers = () => {
             });
             userMiniSwal('success', 'User added successfully!');
             reset();
+            setPhoto('');
         } catch (error) {
             const errorCode = error.code;
             userMiniSwal('error', parseCode(errorCode));
@@ -180,7 +181,7 @@ const AddUsers = () => {
                                         <Select label="Select user role" {...field}>
                                             <Option value="Student">Student</Option>
                                             <Option value="Instructor">Instructor</Option>
-                                            <Option value="Administrator">Admin</Option>
+                                            <Option value="Admin">Admin</Option>
                                         </Select>
                                     )}
                                 />

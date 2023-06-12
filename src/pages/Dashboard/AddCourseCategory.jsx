@@ -18,6 +18,7 @@ const AddCourseCategory = () => {
         console.log(data);
         await axios.post('/categories', data);
         reset();
+        setPhoto('');
         userMiniSwal(
             'success',
             'Category added successfully',
@@ -116,6 +117,7 @@ const AddCourseCategory = () => {
                                     type="text"
                                     size="lg"
                                     label="Photo URL"
+                                    defaultValue={""}
                                     {...register("image", { required: 'Photo URL is required' })}
                                     value={photo}
                                     onChange={(e) => setPhoto(e.target.value)}
