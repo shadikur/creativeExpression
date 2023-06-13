@@ -14,12 +14,12 @@ import ViewCourses from "../pages/Dashboard/ViewCourses";
 import ViewCourseCategory from "../pages/Dashboard/ViewCourseCategory";
 import AddCourseCategory from "../pages/Dashboard/AddCourseCategory";
 import ViewAllUsers from "../pages/Dashboard/ViewAllUsers";
-import ViewProfile from "../pages/Dashboard/ViewProfile";
 import Settings from "../pages/Dashboard/Settings";
 import ViewEvents from "../pages/Dashboard/ViewEvents";
 import AddEvents from "../pages/Dashboard/AddEvents";
 import ViewPayments from "../pages/Dashboard/ViewPayments";
 import Tos from "../pages/tos";
+import Profile from "../pages/Dashboard/Profile";
 
 const routes = createBrowserRouter([
     {
@@ -93,7 +93,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: "viewprofile",
-                element: <ViewProfile></ViewProfile>
+                element: <Profile></Profile>
             },
             {
                 path: "settings",

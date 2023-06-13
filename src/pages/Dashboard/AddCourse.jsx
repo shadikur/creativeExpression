@@ -34,6 +34,7 @@ const AddCourse = () => {
             category: data.category,
             costs: data.costs,
             seats: data.seats,
+            enrolled: 0,
             description: data.description,
             photourl: photo,
             status: 'pending',

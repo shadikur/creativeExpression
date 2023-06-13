@@ -10,6 +10,7 @@ import {
     Button,
     CardBody,
     Avatar,
+    Chip,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -32,17 +33,27 @@ const ViewCourses = () => {
         }
     );
 
+    // Hndle status update
+    const handleStatusUpdate = async (_id, status) => {
+        try {
+            await axios.put(`/classstatus/${_id}`, { status });
+            refetch();
+        } catch (error) {
+            console.error('Error updating class status:', error);
+            throw error;
+        }
+    };
+
+    // Handle Class Data update
     const handleUpdate = async (_id) => {
-        console.log(_id);
-    }
-
-    const handleApprove = async (_id) => {
-        console.log(_id);
-    }
-
-    const handleDeny = async (_id) => {
-        console.log(_id);
-    }
+        try {
+            await axios.put(`/classes/${_id}`);
+            refetch();
+        } catch (error) {
+            console.error('Error updating class:', error);
+            throw error;
+        }
+    };
 
 
     const handleDelete = async (_id) => {
@@ -86,7 +97,7 @@ const ViewCourses = () => {
     }
 
 
-    const TABLE_HEAD = ["Cover Photo", "Class Name", "Category", "Instructor", "Available Seats", "Price", "Status", "Actions",];
+    const TABLE_HEAD = ["Cover Photo", "Class Name", "Category", "Instructor", "Total Seats", "Enrolled", "Available Seats", "Price", "Status", "Actions",];
 
     return (
         <Card className="w-full mt-5" >
@@ -127,7 +138,7 @@ const ViewCourses = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {course.map(({ _id, classname, instructor, category, seats, costs, photourl, status, description }, index) => {
+                        {course.map(({ _id, classname, instructor, category, seats, enrolled, costs, photourl, status, description }, index) => {
                             const isLast = index === course.length - 1;
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
@@ -174,6 +185,22 @@ const ViewCourses = () => {
 
                                         </div>
                                     </td>
+                                    <td className={classes}>
+                                        <div className="flex flex-col">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                                {enrolled}
+                                            </Typography>
+
+                                        </div>
+                                    </td>
+                                    <td className={classes}>
+                                        <div className="flex flex-col">
+                                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                                {seats - enrolled}
+                                            </Typography>
+
+                                        </div>
+                                    </td>
 
                                     <td className={classes}>
                                         <div className="flex flex-col">
@@ -186,7 +213,27 @@ const ViewCourses = () => {
                                     <td className={classes}>
                                         <div className="flex flex-col">
                                             <Typography variant="small" color="blue-gray" className="font-normal">
-                                                {status}
+                                                {(status == 'approved') && <Chip
+                                                    variant="ghost"
+                                                    color="green"
+                                                    size="sm"
+                                                    value="Approved"
+                                                    icon={<span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-green-900" />}
+                                                />}
+                                                {(status == 'denied') && <Chip
+                                                    variant="ghost"
+                                                    color="red"
+                                                    size="sm"
+                                                    value="Denied"
+                                                    icon={<span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-red-900" />}
+                                                />}
+                                                {(status == 'pending') && <Chip
+                                                    variant="ghost"
+                                                    color="yellow"
+                                                    size="sm"
+                                                    value="Pending"
+                                                    icon={<span className="content-[''] block w-2 h-2 rounded-full mx-auto mt-1 bg-yellow-900" />}
+                                                />}
                                             </Typography>
 
                                         </div>
@@ -197,8 +244,8 @@ const ViewCourses = () => {
                                         <div className='grid grid-cols-1'>
                                             <Button color="blue" size='sm' onClick={() => handleUpdate(_id)}>Update</Button>
                                             <Button color="red" size='sm' onClick={() => handleDelete(_id)}>Delete</Button>
-                                            <Button color="yellow" size='sm' onClick={() => handleDeny(_id)}>Deny</Button>
-                                            <Button color="green" size='sm' onClick={() => handleApprove(_id)}>Approve</Button>
+                                            <Button color="yellow" size='sm' onClick={() => handleStatusUpdate(_id, "denied")}>Deny</Button>
+                                            <Button color="green" size='sm' onClick={() => handleStatusUpdate(_id, "approved")}>Approve</Button>
                                         </div>
                                     </td>
                                 </tr>
