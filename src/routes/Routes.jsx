@@ -20,6 +20,8 @@ import ViewPayments from "../pages/Dashboard/ViewPayments";
 import Tos from "../pages/tos";
 import Profile from "../pages/Dashboard/Profile";
 import Instructors from "../pages/Instructors";
+import AdminOnly from "./AdminOnly";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const routes = createBrowserRouter([
     {
@@ -61,7 +63,9 @@ const routes = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <ProtectedRoutes>
+            <DashboardLayout></DashboardLayout>
+        </ProtectedRoutes>,
         children: [
             {
                 path: "",
@@ -89,7 +93,9 @@ const routes = createBrowserRouter([
             },
             {
                 path: "viewcoursecategory",
-                element: <ViewCourseCategory></ViewCourseCategory>
+                element: <AdminOnly>
+                    <ViewCourseCategory></ViewCourseCategory>
+                </AdminOnly>
             },
             {
                 path: "viewprofile",
