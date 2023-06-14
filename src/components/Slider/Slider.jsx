@@ -45,15 +45,9 @@ const Slider = () => {
         <>
             <div ref={sliderRef} className="keen-slider">
                 <div className="keen-slider__slide number-slide1">
-                    <Typography variant="h2" color="gray" className="text-center mb-10">
-                        Popular Classes
-                    </Typography>
-                    <Button color="lightBlue" ripple="light">
-                        Get Started
-                    </Button>
                 </div>
-                <div className="keen-slider__slide number-slide2">2</div>
-                <div className="keen-slider__slide number-slide3">3</div>
+                <div className="keen-slider__slide number-slide2"></div>
+                <div className="keen-slider__slide number-slide3"></div>
             </div>
         </>
     );

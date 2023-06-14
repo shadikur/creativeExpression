@@ -1,4 +1,4 @@
-import { Card, Typography } from '@material-tailwind/react';
+import { Card, Chip, Typography } from '@material-tailwind/react';
 import React from 'react';
 
 const ClassCard = ({ classItem }) => {
@@ -17,6 +17,13 @@ const ClassCard = ({ classItem }) => {
                         <Typography variant="h5" color="gray" className="mb-2">
                             {classItem.classname}
                         </Typography>
+                        <Chip
+                            variant="ghost"
+                            color="green"
+                            size="sm"
+                            value={"$ " + classItem.costs}
+                            className='w-20 mx-auto text-center'
+                        />
                         <Typography variant="body2" color="gray">
                             {classItem.description.slice(0, 100)}...
                         </Typography>
@@ -26,7 +33,7 @@ const ClassCard = ({ classItem }) => {
                             10:00 AM - 12:00 PM
                         </Typography>
                         <Typography variant="body2" color="gray">
-                            {classItem.seats} Seats
+                            {classItem.seats} Seats ({classItem.seats - classItem.enrolled} left)
                         </Typography>
                     </div>
                 </div>

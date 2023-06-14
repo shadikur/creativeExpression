@@ -1,7 +1,23 @@
 import React from 'react';
 import EventsCard from './EventsCard';
+import useAxios from '../../hooks/useAxios';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../Spinner/LoadingSpinner';
 
 const Events = () => {
+
+    const axios = useAxios();
+    const { data: events, isLoading, error } = useQuery({
+        queryKey: 'events',
+        queryFn: async () => {
+            const { data } = await axios.get('/events');
+            return data;
+        }
+    });
+
+    if (isLoading) return <LoadingSpinner />;
+    if (error) return <p>Something went wrong...</p>;
+
     return (
         <div>
             <section className="py-10 bg-gray-50 sm:py-16 lg:py-24 mt-5 mb-5 rounded-2xl">
@@ -58,7 +74,7 @@ const Events = () => {
                     </div>
                     <div className="grid max-w-md grid-cols-1 gap-6 mx-auto mt-8 lg:mt-16 lg:grid-cols-3 lg:max-w-full">
                         {
-                            [1, 2, 3].map((event) => <EventsCard key={event}></EventsCard>)
+                            events.map((event) => <EventsCard key={event} event={event}></EventsCard>)
                         }
                     </div>
                     <div className="flex items-center justify-center mt-8 space-x-3 lg:hidden">

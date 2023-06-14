@@ -8,6 +8,7 @@ const SocialLogins = () => {
     const { GoogleSignIn, parseCode, GithubLogin } = useContext(CoreContext);
     const navigate = useNavigate();
     const axios = useAxios();
+    const from = navigate.location?.state?.from;
 
     const handleGoogleSignIn = () => {
         GoogleSignIn().then((response) => {
@@ -41,7 +42,11 @@ const SocialLogins = () => {
             setTimeout(() => {
                 userMiniSwal('info', 'We are taking you to the home page');
                 setTimeout(() => {
-                    navigate('/');
+                    if (from) {
+                        navigate(from);
+                    } else {
+                        navigate('/');
+                    }
                 }, 1000);
             }, 2000);
         }).catch((error) => {

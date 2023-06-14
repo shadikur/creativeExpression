@@ -23,6 +23,7 @@ const Signin = () => {
     const { loginUser, parseCode } = useContext(CoreContext);
     const axios = useAxios();
     const navigate = useNavigate();
+    const from = navigate.location?.state?.from;
 
     const onSubmit = async (data) => {
 
@@ -36,7 +37,11 @@ const Signin = () => {
                 await parseCode(token);
                 userMiniSwal('success', 'Logged in successfully');
                 setTimeout(() => {
-                    navigate('/');
+                    if (from) {
+                        navigate(from);
+                    } else {
+                        navigate('/');
+                    }
                 }, 1000);
             }
         } catch (error) {
