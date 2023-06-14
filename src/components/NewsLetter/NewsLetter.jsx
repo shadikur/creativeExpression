@@ -7,7 +7,7 @@ const NewsLetter = () => {
                 <div className="absolute inset-0">
                     <img
                         className="object-cover w-full h-full md:object-left md:scale-150 md:origin-top-left"
-                        src="https://cdn.rareblocks.xyz/collection/celebration/images/cta/5/girl-working-on-laptop.jpg"
+                        src="https://vpa.uncg.edu/wp-content/uploads/2020/12/Igoe11-1164x526.jpeg"
                         alt=""
                     />
                 </div>
@@ -16,12 +16,10 @@ const NewsLetter = () => {
                 <div className="relative px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
                     <div className="text-center md:w-2/3 lg:w-1/2 xl:w-1/3 md:text-left">
                         <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-                            Get full access to Celebration
+                            Stay up to date with our newsletter
                         </h2>
                         <p className="mt-4 text-base text-gray-200">
-                            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-                            sint. Velit officia consequat duis enim velit mollit. Exercitation
-                            veniam.
+                            Sign up for our newsletter to receive updates on new classes, instructors, and more!
                         </p>
                         <form action="#" method="POST" className="mt-8 lg:mt-12">
                             <div className="flex flex-col items-center sm:flex-row sm:justify-center">
@@ -50,7 +48,7 @@ const NewsLetter = () => {
                                             id="email"
                                             placeholder="Enter email address"
                                             className="block w-full py-4 pl-10 pr-4 text-base text-black placeholder-gray-500 transition-all duration-200 border-gray-200 rounded-md sm:rounded-r-none caret-blue-600 focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                                            required=""
+                                            required={true}
                                         />
                                     </div>
                                 </div>
@@ -58,7 +56,7 @@ const NewsLetter = () => {
                                     type="submit"
                                     className="inline-flex items-center justify-center flex-shrink-0 w-auto px-4 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md sm:mt-0 sm:rounded-l-none sm:w-auto hover:bg-blue-700 focus:bg-blue-700"
                                 >
-                                    Get instant access
+                                    Subscribe
                                 </button>
                             </div>
                         </form>
