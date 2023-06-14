@@ -50,7 +50,7 @@ const AppContext = ({ children }) => {
         return signOut(auth);
     };
 
-    const getIdToken = (email) => {
+    const getJWTtoken = (email) => {
         const response = axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth`, { email });
         return response;
     };
@@ -107,7 +107,7 @@ const AppContext = ({ children }) => {
             setLoading(false);
             // Set the authorization token for all requests
             if (currentlyLogged) {
-                currentlyLogged.getIdToken(currentlyLogged.email).then((token) => {
+                currentlyLogged.getJWTtoken(currentlyLogged.email).then((token) => {
                     localStorage.setItem('token', token);
                 });
             }

@@ -22,12 +22,15 @@ import Profile from "../pages/Dashboard/Profile";
 import Instructors from "../pages/Instructors";
 import AdminOnly from "./AdminOnly";
 import ProtectedRoutes from "./ProtectedRoutes";
+import MySelectedClass from "../pages/Dashboard/MySelectedClass";
+import MyEnrolledClass from "../pages/Dashboard/MyEnrolledClass";
+import ErrorPage from "../pages/ErrorPage";
 
 const routes = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage></LandingPage>,
-        errorElement: <h1>404 Not Found</h1>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",
@@ -116,6 +119,14 @@ const routes = createBrowserRouter([
             {
                 path: "viewpayments",
                 element: <ViewPayments></ViewPayments>
+            },
+            {
+                path: "myselectedclass",
+                element: <MySelectedClass></MySelectedClass>
+            },
+            {
+                path: "myenrolledclasses",
+                element: <MyEnrolledClass></MyEnrolledClass>
             }
 
         ]
