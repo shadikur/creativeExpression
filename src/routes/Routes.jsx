@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
-import Events from "../pages/Events";
 import Classes from "../pages/Classes";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -20,6 +19,7 @@ import AddEvents from "../pages/Dashboard/AddEvents";
 import ViewPayments from "../pages/Dashboard/ViewPayments";
 import Tos from "../pages/tos";
 import Profile from "../pages/Dashboard/Profile";
+import Instructors from "../pages/Instructors";
 
 const routes = createBrowserRouter([
     {
@@ -36,8 +36,8 @@ const routes = createBrowserRouter([
                 element: <Classes></Classes>
             },
             {
-                path: "events",
-                element: <Events></Events>
+                path: "instructors",
+                element: <Instructors></Instructors>
             },
             {
                 path: "contact",

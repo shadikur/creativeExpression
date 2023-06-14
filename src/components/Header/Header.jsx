@@ -75,8 +75,8 @@ const Header = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to={`/events`} className="flex items-center dark:text-white">
-                    Events
+                <Link to={`/instructors`} className="flex items-center dark:text-white">
+                    Instructors
                 </Link>
             </Typography>
             <Typography
@@ -207,9 +207,6 @@ const Header = () => {
                 </div>
                 <Collapse open={openNav}>
                     {navList}
-                    <Button variant="gradient" size="sm" fullWidth className="mb-2">
-                        <span>Buy Now</span>
-                    </Button>
                 </Collapse>
 
             </Navbar >

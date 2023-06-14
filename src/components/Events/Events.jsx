@@ -8,7 +8,7 @@ const Events = () => {
 
     const axios = useAxios();
     const { data: events, isLoading, error } = useQuery({
-        queryKey: 'events',
+        queryKey: ['events'],
         queryFn: async () => {
             const { data } = await axios.get('/events');
             return data;

@@ -11,8 +11,8 @@ const EventsCard = ({ event }) => {
                         <a href="#" title="" className="block aspect-w-4 aspect-h-3">
                             <img
                                 className="object-cover w-full h-full"
-                                src="https://cdn.rareblocks.xyz/collection/celebration/images/blog/2/blog-post-1.jpg"
-                                alt=""
+                                src={event.eventImg}
+                                alt={event.eventTitle}
                             />
                         </a>
                         <div className="absolute top-4 left-4">
